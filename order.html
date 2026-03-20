@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order - Luthzz Digital Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --dark-bg: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --text-color: #ffffff;
+            --text-muted: #b3b3b3;
+            --accent-green: #00b894;
+            --accent-red: #d63031;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== PAGE ENTRANCE ANIMATION ===== */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .page-loader.hidden {
+            opacity: 0;            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loader-content {
+            text-align: center;
+            animation: loaderFadeIn 0.8s ease-out;
+        }
+
+        @keyframes loaderFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .loader-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .loader-text {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 4px;
+            background: rgba(108, 92, 231, 0.2);
+            border-radius: 2px;
+            margin: 1.5rem auto 0;
+            overflow: hidden;
+        }
+
+        .loader-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+            animation: loadProgress 1.5s ease-out forwards;
+        }
+        @keyframes loadProgress {
+            to { width: 100%; }
+        }
+
+        /* Page Content Animation */
+        .page-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .page-content.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered Animation for Products */
+        .product-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .product-card.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(15, 15, 15, 0.95);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(108, 92, 231, 0.3);
+            backdrop-filter: blur(10px);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .navbar .logo {            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(108, 92, 231, 0.2);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            border-radius: 8px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-right: 1rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(108, 92, 231, 0.3);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateX(-3px);
+        }
+
+        .back-btn i {
+            font-size: 0.85rem;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            transition: color 0.3s;
+        }
+
+        .cart-icon:hover {
+            color: var(--primary-color);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary-color);            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 100vh;
+            background: var(--card-bg);
+            z-index: 1001;
+            padding: 2rem;
+            overflow-y: auto;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            border-left: 1px solid rgba(108, 92, 231, 0.3);
+            animation: slideInRight 0.4s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        .cart-modal.active {
+            display: block;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cart-header h2 {
+            color: var(--primary-color);
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: var(--text-color);            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .close-cart:hover {
+            color: var(--accent-red);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-price {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .qty-btn {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            cursor: pointer;            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .qty-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .qty-value {
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .cart-total {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 2px solid rgba(108, 92, 231, 0.5);
+        }
+
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-total-final {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 8rem 5% 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 60vh;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .page-title h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .page-title p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(108, 92, 231, 0.2);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Payment Modal */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 2rem 1rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .payment-modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .payment-modal-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            max-width: 700px;
+            width: 100%;
+            margin: 2rem auto;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            box-shadow: 0 20px 60px rgba(108, 92, 231, 0.4);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .payment-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .payment-modal-header h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+        .close-payment {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-payment:hover {
+            color: var(--accent-red);
+            background: rgba(214, 48, 49, 0.1);
+        }
+
+        .qris-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .qris-logo {
+            width: 250px;
+            height: 250px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: white;
+            padding: 1rem;
+        }
+
+        .payment-info {
+            max-width: 400px;
+            text-align: left;
+        }
+
+        .payment-info h3 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .payment-info ul {
+            list-style: none;            color: var(--text-muted);
+        }
+
+        .payment-info li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .payment-info li i {
+            color: var(--accent-green);
+        }
+
+        .order-now-btn {
+            padding: 1.2rem 3rem;
+            background: var(--accent-green);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .order-now-btn:hover {
+            background: #00a383;
+        }
+
+        .order-now-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        /* Invoice Modal */
+        .invoice-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 3000;            overflow-y: auto;
+            padding: 2rem 1rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .invoice-modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .invoice-modal-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 100%;
+            margin: 2rem auto;
+            border: 2px solid rgba(108, 92, 231, 0.5);
+            box-shadow: 0 20px 60px rgba(108, 92, 231, 0.5);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px dashed rgba(108, 92, 231, 0.3);
+        }
+
+        .invoice-header h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .invoice-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .qris-invoice-logo {
+            width: 500px;
+            height: 500px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: white;
+            padding: 0.5rem;
+            margin: 1rem auto;
+            display: block;        }
+
+        .invoice-number {
+            background: rgba(108, 92, 231, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .invoice-details {
+            margin-bottom: 2rem;
+        }
+
+        .invoice-details h3 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .invoice-items {
+            margin-bottom: 1.5rem;
+        }
+
+        .invoice-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .invoice-item-name {
+            color: var(--text-color);
+        }
+
+        .invoice-item-qty {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .invoice-item-price {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        .invoice-totals {
+            background: rgba(108, 92, 231, 0.1);
+            padding: 1.5rem;            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .invoice-total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .invoice-total-final {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--accent-green);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid rgba(108, 92, 231, 0.3);
+        }
+
+        .invoice-status {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0, 184, 148, 0.1);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--accent-green);
+        }
+
+        .invoice-status i {
+            color: var(--accent-green);
+            margin-right: 0.5rem;
+        }
+
+        .invoice-status span {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        .confirm-payment-btn {
+            padding: 1.2rem 2rem;
+            background: var(--accent-green);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;            gap: 0.5rem;
+            transition: background 0.3s;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .confirm-payment-btn:hover {
+            background: #00a383;
+        }
+
+        .close-invoice-btn {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid var(--text-muted);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .close-invoice-btn:hover {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(108, 92, 231, 0.3);
+            margin-top: 4rem;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        footer p {
+            color: var(--text-muted);
+        }
+
+        /* Overlay */
+        .overlay {
+            display: none;
+            position: fixed;            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--card-bg);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-green);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateX(150%);
+            transition: transform 0.3s;
+            z-index: 4000;
+        }
+
+        .toast.active {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            border-left-color: var(--accent-green);
+        }
+
+        .toast.error {
+            border-left-color: var(--accent-red);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 3%;
+            }
+
+            .cart-modal {
+                width: 100%;
+            }
+
+            .main-content {                padding: 6rem 3% 2rem;
+            }
+
+            .page-title h1 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-modal-content {
+                padding: 1.5rem;
+                margin: 1rem auto;
+            }
+
+            .qris-container {
+                flex-direction: column;
+            }
+
+            .qris-logo {
+                width: 200px;
+                height: 200px;
+            }
+
+            .invoice-modal-content {
+                padding: 1.5rem;
+                margin: 1rem auto;
+            }
+
+            .qris-invoice-logo {
+                width: 400px;
+                height: 400px;
+            }
+
+            .back-btn span {
+                display: none;
+            }
+            
+            .back-btn {
+                padding: 0.5rem;
+                width: 40px;
+                height: 40px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Loader -->    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="loader-icon">
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+            <div class="loader-text">LOADING STORE</div>
+            <div class="loader-bar">
+                <div class="loader-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">LUTHZZ</a>
+        <div style="display: flex; align-items: center;">
+            <a href="index.html?skipLoader=true#home" class="back-btn">
+                <i class="fas fa-arrow-left"></i> <span>Kembali</span>
+            </a>
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Modal -->
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h2><i class="fas fa-shopping-cart"></i> Keranjang</h2>
+            <button class="close-cart" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="cartItems"></div>
+        <div class="cart-total" id="cartTotal">
+            <div class="cart-total-row">
+                <span>Subtotal:</span>
+                <span id="subtotal">Rp 0</span>
+            </div>
+            <div class="cart-total-row">
+                <span>Pajak (10%):</span>
+                <span id="tax">Rp 0</span>
+            </div>
+            <div class="cart-total-row cart-total-final">
+                <span>Total:</span>
+                <span id="total">Rp 0</span>
+            </div>
+        </div>
+        <button class="order-now-btn" id="checkoutBtn" onclick="showPaymentModal()" style="width: 100%; margin-top: 1.5rem;" disabled>
+            <i class="fas fa-credit-card"></i> Lanjut ke Pembayaran        </button>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="payment-modal-content">
+            <div class="payment-modal-header">
+                <h2><i class="fas fa-credit-card"></i> Informasi Pembayaran</h2>
+                <button class="close-payment" onclick="closePaymentModal()"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="qris-container">
+                <img src="https://i.ibb.co.com/HDNHjfNm/images.jpg" alt="QRIS Logo" class="qris-logo">
+                <div class="payment-info">
+                    <h3>Metode Pembayaran</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> QRIS (All E-Wallet)</li>
+                        <li><i class="fas fa-check-circle"></i> GoPay, OVO, Dana, ShopeePay</li>
+                        <li><i class="fas fa-check-circle"></i> BCA, Mandiri, BRI, BNI</li>
+                        <li><i class="fas fa-check-circle"></i> Pembayaran Otomatis</li>
+                        <li><i class="fas fa-check-circle"></i> Konfirmasi Instan</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="orderSummary" style="margin: 2rem 0; padding: 1.5rem; background: rgba(108, 92, 231, 0.1); border-radius: 10px;">
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Ringkasan Pesanan</h3>
+                <div id="orderItems"></div>
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <div class="cart-total-row">
+                        <span>Total Pembayaran:</span>
+                        <span id="orderTotal" style="color: var(--accent-green); font-weight: bold; font-size: 1.3rem;">Rp 0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="order-now-btn" id="orderNowBtn" onclick="showInvoiceModal()">
+                <i class="fas fa-file-invoice"></i> Buat Invoice & Pesan
+            </button>
+        </div>
+    </div>
+
+    <!-- Invoice Modal -->
+    <div class="invoice-modal" id="invoiceModal">
+        <div class="invoice-modal-content">
+            <div class="invoice-header">
+                <h2><i class="fas fa-receipt"></i> INVOICE PEMBAYARAN</h2>
+                <img src="https://i.ibb.co.com/HDNHjfNm/images.jpg" alt="QRIS Logo" class="qris-invoice-logo">
+                <p>Luthzz Digital Portfolio</p>
+                <div class="invoice-number" id="invoiceNumber">INV-2026-000001</div>            </div>
+            
+            <div class="invoice-details">
+                <h3><i class="fas fa-shopping-bag"></i> Detail Pesanan</h3>
+                <div class="invoice-items" id="invoiceItems"></div>
+            </div>
+            
+            <div class="invoice-totals">
+                <div class="invoice-total-row">
+                    <span>Subtotal:</span>
+                    <span id="invoiceSubtotal">Rp 0</span>
+                </div>
+                <div class="invoice-total-row">
+                    <span>Pajak (10%):</span>
+                    <span id="invoiceTax">Rp 0</span>
+                </div>
+                <div class="invoice-total-row invoice-total-final">
+                    <span>Total Pembayaran:</span>
+                    <span id="invoiceTotal">Rp 0</span>
+                </div>
+            </div>
+            
+            <div class="invoice-status">
+                <i class="fas fa-clock"></i>
+                <span>Status: Menunggu Pembayaran</span>
+            </div>
+            
+            <button class="confirm-payment-btn" onclick="confirmPayment()">
+                <i class="fab fa-whatsapp"></i> Konfirmasi Pembayaran via WhatsApp
+            </button>
+            
+            <button class="close-invoice-btn" onclick="closeInvoiceModal()">
+                <i class="fas fa-times"></i> Tutup Invoice
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-content" id="pageContent">
+            <div class="page-title">
+                <h1><i class="fas fa-store"></i> Order Produk</h1>
+                <p>Pilih produk digital yang Anda butuhkan untuk bisnis Anda</p>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="products-grid" id="productsGrid"></div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Luthzz Digital. All rights reserved.</p>
+        <p style="margin-top: 0.5rem;">Designed & Developed by Luthzz</p>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i> <span id="toastMessage">Produk ditambahkan ke keranjang!</span>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, name: "Web Development", category: "Web Development", description: "Pengembangan Web untuk jualan / portfolio dengan optimal. Responsive di semua device.", price: 500000, image: "https://i.ibb.co.com/BHxZT1tf/IMG-20260319-WA0050.jpg" },
+            { id: 2, name: "E-Commerce Platform", category: "Web Development", description: "Platform e-commerce lengkap dengan integrasi pembayaran yang aman, manajemen inventaris.", price: 1500000, image: "https://i.ibb.co.com/HDNHjfNm/images.jpg" },
+            { id: 3, name: "Bot Auto JPM", category: "WhatsApp Bot", description: "Bot promosi otomatis. Ubah cara promosi mu lebih canggih tanpa kesalahan.", price: 250000, image: "https://i.ibb.co.com/23XZTmhF/1773936586071.jpg" },
+            { id: 4, name: "Bot Auto Order V8", category: "WhatsApp Bot", description: "Bot Store dengan pembayaran otomatis dan rekap transaksi. User friendly dengan payment gateway.", price: 350000, image: "https://i.ibb.co.com/prjXp1gC/Solusi-bot-Whats-App-kustom-Lutfi-Digital.png" },
+            { id: 5, name: "WhatsApp Customer Service Bot", category: "WhatsApp Bot", description: "Custom Bot whatsapp, telegram, discord sesuai kebutuhan. Full otomatis payment gateway.", price: 300000, image: "https://i.ibb.co.com/YYCXStD/promosi-ke-2.jpg" },
+            { id: 6, name: "Mapping GTA SA:MP", category: "GTA SA:MP", description: "Membuat mapping (bangunan) untuk server ataupun pribadi. Budget pas dijamin puas.", price: 200000, image: "https://i.ibb.co.com/0RF5pYLZ/20131107092815710-1014x650.jpg" },
+            { id: 7, name: "Jasa On Server SAMP", category: "GTA SA:MP", description: "Jasa on server SAMP free set admin dan rename server full.", price: 100000, image: "https://i.ibb.co.com/zVstWGGF/20260212-212710.jpg" },
+            { id: 8, name: "Portfolio Website", category: "Web Development", description: "Membuat Web Portfolio untuk pribadi. Bisa sesuai request dan tentukan tema.", price: 400000, image: "https://i.ibb.co.com/BHxZT1tf/IMG-20260319-WA0050.jpg" }
+        ];
+
+        let cart = [];
+
+        function generateInvoiceNumber() {
+            const date = new Date();
+            const year = date.getFullYear();
+            const random = Math.floor(Math.random() * 90000) + 10000;
+            return `INV-${year}-${random}`;
+        }
+
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+        }
+
+        function formatDate() {
+            const date = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            return date.toLocaleDateString('id-ID', options);
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = products.map((product, index) => `
+                <div class="product-card" style="transition-delay: ${index * 0.1}s">
+                    <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <h3 class="product-name">${product.name}</h3>                        <p class="product-description">${product.description}</p>
+                        <div class="product-price">${formatRupiah(product.price)}</div>
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Trigger staggered animation
+            setTimeout(() => {
+                document.querySelectorAll('.product-card').forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('animate-in');
+                    }, index * 100);
+                });
+            }, 100);
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            updateCart();
+            showToast('Produk ditambahkan ke keranjang!');
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const subtotalEl = document.getElementById('subtotal');
+            const taxEl = document.getElementById('tax');
+            const totalEl = document.getElementById('total');
+            const orderItems = document.getElementById('orderItems');
+            const orderTotal = document.getElementById('orderTotal');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 2rem;">Keranjang kosong</p>';
+                orderItems.innerHTML = '<p style="color: var(--text-muted);">Belum ada produk yang dipilih</p>';
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-info">                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${formatRupiah(item.price)}</div>
+                        </div>
+                        <div class="cart-item-quantity">
+                            <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                            <span class="qty-value">${item.quantity}</span>
+                            <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                        </div>
+                    </div>
+                `).join('');
+
+                orderItems.innerHTML = cart.map(item => `
+                    <div class="cart-total-row">
+                        <span>${item.name} x${item.quantity}</span>
+                        <span>${formatRupiah(item.price * item.quantity)}</span>
+                    </div>
+                `).join('');
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+
+            subtotalEl.textContent = formatRupiah(subtotal);
+            taxEl.textContent = formatRupiah(tax);
+            totalEl.textContent = formatRupiah(total);
+            orderTotal.textContent = formatRupiah(total);
+
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const orderNowBtn = document.getElementById('orderNowBtn');
+            if (cart.length === 0) {
+                checkoutBtn.disabled = true;
+                orderNowBtn.disabled = true;
+            } else {
+                checkoutBtn.disabled = false;
+                orderNowBtn.disabled = false;
+            }
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.id !== productId);
+                }
+                updateCart();
+            }
+        }
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            const overlay = document.getElementById('overlay');
+            modal.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function showPaymentModal() {
+            if (cart.length === 0) {
+                showToast('Keranjang masih kosong!', 'error');
+                return;
+            }
+            updateCart();
+            const modal = document.getElementById('paymentModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePaymentModal() {
+            const modal = document.getElementById('paymentModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function showInvoiceModal() {
+            if (cart.length === 0) {
+                showToast('Keranjang masih kosong!', 'error');
+                return;
+            }
+
+            document.getElementById('invoiceNumber').textContent = generateInvoiceNumber();
+
+            const invoiceItems = document.getElementById('invoiceItems');
+            invoiceItems.innerHTML = cart.map(item => `
+                <div class="invoice-item">
+                    <div>
+                        <div class="invoice-item-name">${item.name}</div>
+                        <div class="invoice-item-qty">Qty: ${item.quantity}</div>
+                    </div>
+                    <div class="invoice-item-price">${formatRupiah(item.price * item.quantity)}</div>
+                </div>
+            `).join('');
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+
+            document.getElementById('invoiceSubtotal').textContent = formatRupiah(subtotal);
+            document.getElementById('invoiceTax').textContent = formatRupiah(tax);
+            document.getElementById('invoiceTotal').textContent = formatRupiah(total);
+            closePaymentModal();
+            const invoiceModal = document.getElementById('invoiceModal');
+            invoiceModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeInvoiceModal() {
+            const modal = document.getElementById('invoiceModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function confirmPayment() {
+            if (cart.length === 0) {
+                showToast('Keranjang masih kosong!', 'error');
+                return;
+            }
+
+            const invoiceNumber = document.getElementById('invoiceNumber').textContent;
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+            const orderDetails = cart.map(item => `• ${item.name} x${item.quantity} - ${formatRupiah(item.price * item.quantity)}`).join('\n');
+
+            const message = `*KONFIRMASI PEMBAYARAN*%0A%0A` +
+                `*Invoice:* ${invoiceNumber}%0A` +
+                `*Tanggal:* ${formatDate()}%0A%0A` +
+                `*Detail Pesanan:*%0A${orderDetails}%0A%0A` +
+                `*Subtotal:* ${formatRupiah(subtotal)}%0A` +
+                `*Pajak (10%):* ${formatRupiah(tax)}%0A` +
+                `*Total Pembayaran:* ${formatRupiah(total)}%0A%0A` +
+                `*Status:* Menunggu Pembayaran%0A%0A` +
+                `Mohon konfirmasi pembayaran saya. Terima kasih!`;
+            
+            const whatsappUrl = `https://wa.me/6285819544329?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+            
+            setTimeout(() => {
+                cart = [];
+                updateCart();
+                closeInvoiceModal();
+                showToast('Terima kasih! Keranjang telah direset.', 'success');
+            }, 1000);
+        }
+
+        document.getElementById('paymentModal').addEventListener('click', function(e) {
+            if (e.target === this) closePaymentModal();
+        });
+        document.getElementById('invoiceModal').addEventListener('click', function(e) {
+            if (e.target === this) closeInvoiceModal();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePaymentModal();
+                closeInvoiceModal();
+                const cartModal = document.getElementById('cartModal');
+                const overlay = document.getElementById('overlay');
+                cartModal.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        });
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+            toast.classList.add('active', type);
+            setTimeout(() => {
+                toast.classList.remove('active', type);
+            }, 3000);
+        }
+
+        // Page Load Animation
+        window.addEventListener('load', () => {
+            const pageLoader = document.getElementById('pageLoader');
+            const pageContent = document.getElementById('pageContent');
+
+            // Hide loader after animation
+            setTimeout(() => {
+                pageLoader.classList.add('hidden');
+                
+                // Show page content
+                setTimeout(() => {
+                    pageContent.classList.add('loaded');
+                    renderProducts();
+                    updateCart();
+                }, 600);
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
