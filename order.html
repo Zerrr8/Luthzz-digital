@@ -22,6 +22,10 @@
             --text-muted: #b3b3b3;
             --accent-green: #00b894;
             --accent-red: #d63031;
+            --gradient-primary: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            --gradient-success: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            --glass-bg: rgba(26, 26, 26, 0.95);
+            --border-glow: rgba(108, 92, 231, 0.3);
         }
 
         body {
@@ -43,11 +47,11 @@
             justify-content: center;
             align-items: center;
             z-index: 99999;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
+            transition: opacity 0.6s ease, visibility 0.6s ease;        }
 
         .page-loader.hidden {
-            opacity: 0;            visibility: hidden;
+            opacity: 0;
+            visibility: hidden;
             pointer-events: none;
         }
 
@@ -92,15 +96,14 @@
         .loader-bar-fill {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            border-radius: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));            border-radius: 2px;
             animation: loadProgress 1.5s ease-out forwards;
         }
+
         @keyframes loadProgress {
             to { width: 100%; }
         }
 
-        /* Page Content Animation */
         .page-content {
             opacity: 0;
             transform: translateY(20px);
@@ -112,7 +115,6 @@
             transform: translateY(0);
         }
 
-        /* Staggered Animation for Products */
         .product-card {
             opacity: 0;
             transform: translateY(30px);
@@ -135,7 +137,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(108, 92, 231, 0.3);
+            border-bottom: 1px solid var(--border-glow);
             backdrop-filter: blur(10px);
             animation: slideDown 0.6s ease-out;
         }
@@ -144,8 +146,8 @@
             from { transform: translateY(-100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-
-        .navbar .logo {            font-size: 1.8rem;
+        .navbar .logo {
+            font-size: 1.8rem;
             font-weight: bold;
             color: var(--primary-color);
             text-decoration: none;
@@ -157,7 +159,7 @@
             gap: 0.5rem;
             padding: 0.5rem 1rem;
             background: rgba(108, 92, 231, 0.2);
-            border: 1px solid rgba(108, 92, 231, 0.3);
+            border: 1px solid var(--border-glow);
             border-radius: 8px;
             color: var(--text-color);
             text-decoration: none;
@@ -172,10 +174,6 @@
             border-color: var(--primary-color);
             color: var(--primary-color);
             transform: translateX(-3px);
-        }
-
-        .back-btn i {
-            font-size: 0.85rem;
         }
 
         .cart-icon {
@@ -194,9 +192,9 @@
             position: absolute;
             top: -8px;
             right: -8px;
-            background: var(--primary-color);            color: white;
-            font-size: 0.7rem;
-            padding: 2px 6px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 0.7rem;            padding: 2px 6px;
             border-radius: 50%;
             font-weight: bold;
         }
@@ -214,7 +212,7 @@
             padding: 2rem;
             overflow-y: auto;
             box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-            border-left: 1px solid rgba(108, 92, 231, 0.3);
+            border-left: 1px solid var(--border-glow);
             animation: slideInRight 0.4s ease-out;
         }
 
@@ -243,9 +241,9 @@
         .close-cart {
             background: none;
             border: none;
-            color: var(--text-color);            font-size: 1.5rem;
-            cursor: pointer;
-        }
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;        }
 
         .close-cart:hover {
             color: var(--accent-red);
@@ -292,9 +290,9 @@
             width: 30px;
             height: 30px;
             border-radius: 5px;
-            cursor: pointer;            font-size: 1rem;
-            transition: background 0.3s;
-        }
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;        }
 
         .qty-btn:hover {
             background: var(--secondary-color);
@@ -309,7 +307,7 @@
         .cart-total {
             margin-top: 2rem;
             padding-top: 1rem;
-            border-top: 2px solid rgba(108, 92, 231, 0.5);
+            border-top: 2px solid var(--border-glow);
         }
 
         .cart-total-row {
@@ -342,8 +340,8 @@
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .page-title h1 {
-            font-size: 3rem;
+
+        .page-title h1 {            font-size: 3rem;
             color: var(--primary-color);
             margin-bottom: 1rem;
         }
@@ -365,7 +363,7 @@
             background: var(--card-bg);
             border-radius: 15px;
             overflow: hidden;
-            border: 1px solid rgba(108, 92, 231, 0.2);
+            border: 1px solid var(--border-glow);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
@@ -378,7 +376,7 @@
             width: 100%;
             height: 200px;
             object-fit: cover;
-            border-bottom: 1px solid rgba(108, 92, 231, 0.2);
+            border-bottom: 1px solid var(--border-glow);
         }
 
         .product-info {
@@ -390,8 +388,8 @@
             font-size: 0.85rem;
             font-weight: 600;
             text-transform: uppercase;
-            margin-bottom: 0.5rem;        }
-
+            margin-bottom: 0.5rem;
+        }
         .product-name {
             font-size: 1.3rem;
             font-weight: bold;
@@ -433,18 +431,18 @@
             background: var(--secondary-color);
         }
 
-        /* Payment Modal */
+        /* ===== MODERN PAYMENT MODAL ===== */
         .payment-modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);            z-index: 2000;
             overflow-y: auto;
             padding: 2rem 1rem;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
         }
 
         .payment-modal.active {
@@ -454,127 +452,345 @@
         }
 
         .payment-modal-content {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 2.5rem;
-            max-width: 700px;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 750px;
             width: 100%;
             margin: 2rem auto;
-            border: 1px solid rgba(108, 92, 231, 0.3);
-            box-shadow: 0 20px 60px rgba(108, 92, 231, 0.4);
-            animation: modalSlideIn 0.3s ease-out;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 25px 80px rgba(108, 92, 231, 0.3);
+            animation: modalSlideIn 0.4s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
         }
 
         @keyframes modalSlideIn {
             from {
                 opacity: 0;
-                transform: translateY(-50px);
+                transform: translateY(-50px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
         .payment-modal-header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
+            justify-content: space-between;            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .payment-modal-header h2 {
             color: var(--primary-color);
             font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
+
+        .payment-modal-header h2 i {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         .close-payment {
-            background: none;
-            border: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-color);
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            transition: all 0.3s;
         }
 
         .close-payment:hover {
             color: var(--accent-red);
             background: rgba(214, 48, 49, 0.1);
+            border-color: var(--accent-red);
+            transform: rotate(90deg);
         }
 
-        .qris-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
+        /* Modern QRIS Section */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .qris-section {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qris-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-success);
+        }
+
+        .qris-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
         }
 
         .qris-logo {
-            width: 250px;
-            height: 250px;
+            width: 220px;
+            height: 220px;
             object-fit: contain;
-            border-radius: 10px;
+            border-radius: 12px;
             background: white;
             padding: 1rem;
+            margin: 0 auto;
+            display: block;
+            transition: transform 0.3s;
         }
 
-        .payment-info {
-            max-width: 400px;
-            text-align: left;
+        .qris-logo:hover {
+            transform: scale(1.05);
         }
 
-        .payment-info h3 {
+        .qris-label {            margin-top: 1.5rem;
+            color: #333;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .payment-info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .payment-method-card {
+            background: rgba(108, 92, 231, 0.1);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .payment-method-card:hover {
+            background: rgba(108, 92, 231, 0.15);
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .payment-method-card h3 {
             color: var(--text-color);
             margin-bottom: 1rem;
-        }
-
-        .payment-info ul {
-            list-style: none;            color: var(--text-muted);
-        }
-
-        .payment-info li {
-            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .payment-info li i {
+        .payment-method-card h3 i {
             color: var(--accent-green);
+        }
+
+        .payment-method-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .payment-method-list li {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .payment-method-list li i {
+            color: var(--primary-color);
+            font-size: 0.8rem;
+        }
+
+        .payment-features {
+            background: rgba(0, 184, 148, 0.1);
+            border: 1px solid rgba(0, 184, 148, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .payment-features h3 {
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .feature-list li {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-list li i {
+            color: var(--accent-green);
+        }
+
+        /* Order Summary - Modern Design */
+        .order-summary {
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.15) 0%, rgba(162, 155, 254, 0.1) 100%);
+            border: 1px solid var(--border-glow);
+            border-radius: 15px;
+            padding: 2rem;            margin-bottom: 2rem;
+        }
+
+        .order-summary h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .order-summary h3 i {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .order-items-list {
+            margin-bottom: 1.5rem;
+        }
+
+        .order-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .order-item-row:last-child {
+            border-bottom: none;
+        }
+
+        .order-item-name {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .order-item-qty {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+        }
+
+        .order-item-price {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+        .order-totals {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .order-total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .order-total-row.final {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--border-glow);
+            color: var(--text-color);
+        }
+
+        .order-total-final {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: var(--gradient-success);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .order-now-btn {
             padding: 1.2rem 3rem;
-            background: var(--accent-green);
+            background: var(--gradient-success);
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             color: white;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: background 0.3s;
-            width: 100%;
             justify-content: center;
+            gap: 0.75rem;
+            transition: all 0.3s;
+            width: 100%;
+            box-shadow: 0 5px 20px rgba(0, 184, 148, 0.3);
         }
 
-        .order-now-btn:hover {
-            background: #00a383;
+        .order-now-btn:hover {            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 184, 148, 0.4);
         }
 
         .order-now-btn:disabled {
             background: var(--text-muted);
             cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         /* Invoice Modal */
@@ -586,9 +802,10 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.85);
-            z-index: 3000;            overflow-y: auto;
+            z-index: 3000;
+            overflow-y: auto;
             padding: 2rem 1rem;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
         }
 
         .invoice-modal.active {
@@ -598,63 +815,82 @@
         }
 
         .invoice-modal-content {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 2.5rem;
-            max-width: 600px;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 650px;
             width: 100%;
             margin: 2rem auto;
-            border: 2px solid rgba(108, 92, 231, 0.5);
-            box-shadow: 0 20px 60px rgba(108, 92, 231, 0.5);
-            animation: modalSlideIn 0.3s ease-out;
+            border: 2px solid var(--border-glow);
+            box-shadow: 0 25px 80px rgba(108, 92, 231, 0.4);
+            animation: modalSlideIn 0.4s ease-out;
+            position: relative;
+        }
+
+        .invoice-modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
         }
 
         .invoice-header {
             text-align: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 2px dashed rgba(108, 92, 231, 0.3);
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px dashed var(--border-glow);
         }
 
         .invoice-header h2 {
             color: var(--primary-color);
             font-size: 2rem;
             margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
         }
 
         .invoice-header p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
         .qris-invoice-logo {
-            width: 500px;
-            height: 500px;
+            width: 180px;
+            height: 180px;
             object-fit: contain;
-            border-radius: 10px;
+            border-radius: 12px;
             background: white;
-            padding: 0.5rem;
-            margin: 1rem auto;
-            display: block;        }
-
-        .invoice-number {
-            background: rgba(108, 92, 231, 0.2);
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 1rem;
-            font-weight: 600;
-            color: var(--secondary-color);
+            padding: 1rem;
+            margin: 1.5rem auto;
+            display: block;
         }
 
+        .invoice-number {
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.3) 0%, rgba(162, 155, 254, 0.2) 100%);
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            border: 1px solid var(--border-glow);
+        }
         .invoice-details {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .invoice-details h3 {
             color: var(--text-color);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
         .invoice-items {
@@ -664,12 +900,13 @@
         .invoice-item {
             display: flex;
             justify-content: space-between;
-            padding: 0.8rem 0;
+            padding: 1rem 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .invoice-item-name {
             color: var(--text-color);
+            font-weight: 500;
         }
 
         .invoice-item-qty {
@@ -683,38 +920,45 @@
         }
 
         .invoice-totals {
-            background: rgba(108, 92, 231, 0.1);
-            padding: 1.5rem;            border-radius: 10px;
-            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.15) 0%, rgba(162, 155, 254, 0.1) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-glow);
         }
 
         .invoice-total-row {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
+            justify-content: space-between;            margin-bottom: 0.75rem;
+            color: var(--text-muted);
         }
 
         .invoice-total-final {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: bold;
-            color: var(--accent-green);
+            background: var(--gradient-success);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-top: 1rem;
             padding-top: 1rem;
-            border-top: 2px solid rgba(108, 92, 231, 0.3);
+            border-top: 2px solid var(--border-glow);
+            color: var(--accent-green);
         }
 
         .invoice-status {
             text-align: center;
-            padding: 1rem;
+            padding: 1.25rem;
             background: rgba(0, 184, 148, 0.1);
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--accent-green);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 184, 148, 0.3);
         }
 
         .invoice-status i {
             color: var(--accent-green);
             margin-right: 0.5rem;
+            animation: pulse 2s ease-in-out infinite;
         }
 
         .invoice-status span {
@@ -723,31 +967,33 @@
         }
 
         .confirm-payment-btn {
-            padding: 1.2rem 2rem;
-            background: var(--accent-green);
+            padding: 1.3rem 2rem;
+            background: var(--gradient-success);
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             color: white;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            justify-content: center;            gap: 0.5rem;
-            transition: background 0.3s;
+            justify-content: center;
+            gap: 0.75rem;            transition: all 0.3s;
             width: 100%;
             margin-bottom: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 184, 148, 0.3);
         }
 
         .confirm-payment-btn:hover {
-            background: #00a383;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 184, 148, 0.4);
         }
 
         .close-invoice-btn {
-            padding: 1rem 2rem;
+            padding: 1.1rem 2rem;
             background: transparent;
             border: 2px solid var(--text-muted);
-            border-radius: 8px;
+            border-radius: 12px;
             color: var(--text-muted);
             font-size: 1rem;
             font-weight: 600;
@@ -763,6 +1009,7 @@
         .close-invoice-btn:hover {
             border-color: var(--accent-red);
             color: var(--accent-red);
+            background: rgba(214, 48, 49, 0.1);
         }
 
         /* Footer */
@@ -770,7 +1017,7 @@
             background: var(--card-bg);
             padding: 3rem 5%;
             text-align: center;
-            border-top: 1px solid rgba(108, 92, 231, 0.3);
+            border-top: 1px solid var(--border-glow);
             margin-top: 4rem;
             animation: fadeInUp 0.8s ease-out 0.6s both;
         }
@@ -780,9 +1027,9 @@
         }
 
         /* Overlay */
-        .overlay {
-            display: none;
-            position: fixed;            top: 0;
+        .overlay {            display: none;
+            position: fixed;
+            top: 0;
             left: 0;
             width: 100%;
             height: 100%;
@@ -801,9 +1048,9 @@
             right: 30px;
             background: var(--card-bg);
             padding: 1rem 2rem;
-            border-radius: 8px;
+            border-radius: 12px;
             border-left: 4px solid var(--accent-green);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
             transform: translateX(150%);
             transition: transform 0.3s;
             z-index: 4000;
@@ -830,8 +1077,8 @@
             .cart-modal {
                 width: 100%;
             }
-
-            .main-content {                padding: 6rem 3% 2rem;
+            .main-content {
+                padding: 6rem 3% 2rem;
             }
 
             .page-title h1 {
@@ -843,27 +1090,33 @@
             }
 
             .payment-modal-content {
-                padding: 1.5rem;
+                padding: 2rem;
                 margin: 1rem auto;
             }
 
-            .qris-container {
-                flex-direction: column;
+            .payment-methods {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
             .qris-logo {
-                width: 200px;
-                height: 200px;
+                width: 180px;
+                height: 180px;
+            }
+
+            .payment-method-list,
+            .feature-list {
+                grid-template-columns: 1fr;
             }
 
             .invoice-modal-content {
-                padding: 1.5rem;
+                padding: 2rem;
                 margin: 1rem auto;
             }
 
             .qris-invoice-logo {
-                width: 400px;
-                height: 400px;
+                width: 150px;
+                height: 150px;
             }
 
             .back-btn span {
@@ -872,15 +1125,15 @@
             
             .back-btn {
                 padding: 0.5rem;
-                width: 40px;
-                height: 40px;
+                width: 40px;                height: 40px;
                 justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Page Loader -->    <div class="page-loader" id="pageLoader">
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
         <div class="loader-content">
             <div class="loader-icon">
                 <i class="fas fa-shopping-bag"></i>
@@ -920,16 +1173,16 @@
                 <span id="subtotal">Rp 0</span>
             </div>
             <div class="cart-total-row">
-                <span>Pajak (10%):</span>
-                <span id="tax">Rp 0</span>
-            </div>
+                <span>Pajak (0%):</span>
+                <span id="tax">Rp 0</span>            </div>
             <div class="cart-total-row cart-total-final">
                 <span>Total:</span>
                 <span id="total">Rp 0</span>
             </div>
         </div>
         <button class="order-now-btn" id="checkoutBtn" onclick="showPaymentModal()" style="width: 100%; margin-top: 1.5rem;" disabled>
-            <i class="fas fa-credit-card"></i> Lanjut ke Pembayaran        </button>
+            <i class="fas fa-credit-card"></i> Lanjut ke Pembayaran
+        </button>
     </div>
 
     <!-- Payment Modal -->
@@ -940,33 +1193,56 @@
                 <button class="close-payment" onclick="closePaymentModal()"><i class="fas fa-times"></i></button>
             </div>
             
-            <div class="qris-container">
-                <img src="https://i.ibb.co.com/HDNHjfNm/images.jpg" alt="QRIS Logo" class="qris-logo">
-                <div class="payment-info">
-                    <h3>Metode Pembayaran</h3>
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> QRIS (All E-Wallet)</li>
-                        <li><i class="fas fa-check-circle"></i> GoPay, OVO, Dana, ShopeePay</li>
-                        <li><i class="fas fa-check-circle"></i> BCA, Mandiri, BRI, BNI</li>
-                        <li><i class="fas fa-check-circle"></i> Pembayaran Otomatis</li>
-                        <li><i class="fas fa-check-circle"></i> Konfirmasi Instan</li>
-                    </ul>
+            <div class="payment-methods">
+                <!-- QRIS Section -->
+                <div class="qris-section">
+                    <img src="https://i.ibb.co.com/jZ9W6PPs/1774057401823.jpg" alt="QRIS Logo" class="qris-logo">
+                    <div class="qris-label">Information by AI Luthzz</div>
+                </div>
+                
+                <!-- Payment Info Section -->
+                <div class="payment-info-section">
+                    <div class="payment-method-card">
+                        <h3><i class="fas fa-wallet"></i> Metode Pembayaran</h3>
+                        <ul class="payment-method-list">
+                            <li><i class="fas fa-check-circle"></i> QRIS (All E-Wallet)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="payment-features">
+                        <h3><i class="fas fa-shield-alt"></i>Guide Pembayaran</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> Cek Ringkasan Pemesanan Anda</li>
+                            <li><i class="fas fa-check-circle"></i> Jika Benar Lanjut Buat Invoice & pesan</li>
+                            <li><i class="fas fa-check-circle"></i> Bayar Dengan Qris All Pay</li>
+                            <li><i class="fas fa-check-circle"></i> Pilih Konfirmasi Pembayaran Via WhatsApp</li>
+                            <li><i class="fas fa-check-circle"></i> Kirim Bukti Transfer Ke Admin</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             
-            <div id="orderSummary" style="margin: 2rem 0; padding: 1.5rem; background: rgba(108, 92, 231, 0.1); border-radius: 10px;">
-                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Ringkasan Pesanan</h3>
-                <div id="orderItems"></div>
-                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                    <div class="cart-total-row">
+            <div class="order-summary" id="orderSummary">
+                <h3><i class="fas fa-file-invoice"></i> Ringkasan Pesanan</h3>
+                <div class="order-items-list" id="orderItems"></div>
+                <div class="order-totals">
+                    <div class="order-total-row">
+                        <span>Subtotal:</span>
+                        <span id="orderSubtotal">Rp 0</span>
+                    </div>
+                    <div class="order-total-row">
+                        <span>Pajak (0%):</span>
+                        <span id="orderTax">Rp 0</span>
+                    </div>
+                    <div class="order-total-row final">
                         <span>Total Pembayaran:</span>
-                        <span id="orderTotal" style="color: var(--accent-green); font-weight: bold; font-size: 1.3rem;">Rp 0</span>
+                        <span id="orderTotal" class="order-total-final">Rp 0</span>
                     </div>
                 </div>
             </div>
             
             <button class="order-now-btn" id="orderNowBtn" onclick="showInvoiceModal()">
-                <i class="fas fa-file-invoice"></i> Buat Invoice & Pesan
+                <i class="fas fa-file-invoice-dollar"></i> Buat Invoice & Pesan
             </button>
         </div>
     </div>
@@ -976,11 +1252,11 @@
         <div class="invoice-modal-content">
             <div class="invoice-header">
                 <h2><i class="fas fa-receipt"></i> INVOICE PEMBAYARAN</h2>
-                <img src="https://i.ibb.co.com/HDNHjfNm/images.jpg" alt="QRIS Logo" class="qris-invoice-logo">
                 <p>Luthzz Digital Portfolio</p>
-                <div class="invoice-number" id="invoiceNumber">INV-2026-000001</div>            </div>
-            
-            <div class="invoice-details">
+                <img src="https://i.ibb.co.com/Df0pVB5h/Screenshot-20260321-101938.jpg" alt="QRIS Logo" class="qris-invoice-logo">
+                <div class="invoice-number" id="invoiceNumber">INV-2026-000001</div>
+            </div>
+                        <div class="invoice-details">
                 <h3><i class="fas fa-shopping-bag"></i> Detail Pesanan</h3>
                 <div class="invoice-items" id="invoiceItems"></div>
             </div>
@@ -991,7 +1267,7 @@
                     <span id="invoiceSubtotal">Rp 0</span>
                 </div>
                 <div class="invoice-total-row">
-                    <span>Pajak (10%):</span>
+                    <span>Pajak (0%):</span>
                     <span id="invoiceTax">Rp 0</span>
                 </div>
                 <div class="invoice-total-row invoice-total-final">
@@ -1027,9 +1303,9 @@
             <div class="products-grid" id="productsGrid"></div>
         </div>
     </main>
+
     <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Luthzz Digital. All rights reserved.</p>
+    <footer>        <p>&copy; 2026 Luthzz Digital. All rights reserved.</p>
         <p style="margin-top: 0.5rem;">Designed & Developed by Luthzz</p>
     </footer>
 
@@ -1040,14 +1316,12 @@
 
     <script>
         const products = [
-            { id: 1, name: "Web Development", category: "Web Development", description: "Pengembangan Web untuk jualan / portfolio dengan optimal. Responsive di semua device.", price: 500000, image: "https://i.ibb.co.com/BHxZT1tf/IMG-20260319-WA0050.jpg" },
-            { id: 2, name: "E-Commerce Platform", category: "Web Development", description: "Platform e-commerce lengkap dengan integrasi pembayaran yang aman, manajemen inventaris.", price: 1500000, image: "https://i.ibb.co.com/HDNHjfNm/images.jpg" },
-            { id: 3, name: "Bot Auto JPM", category: "WhatsApp Bot", description: "Bot promosi otomatis. Ubah cara promosi mu lebih canggih tanpa kesalahan.", price: 250000, image: "https://i.ibb.co.com/23XZTmhF/1773936586071.jpg" },
-            { id: 4, name: "Bot Auto Order V8", category: "WhatsApp Bot", description: "Bot Store dengan pembayaran otomatis dan rekap transaksi. User friendly dengan payment gateway.", price: 350000, image: "https://i.ibb.co.com/prjXp1gC/Solusi-bot-Whats-App-kustom-Lutfi-Digital.png" },
-            { id: 5, name: "WhatsApp Customer Service Bot", category: "WhatsApp Bot", description: "Custom Bot whatsapp, telegram, discord sesuai kebutuhan. Full otomatis payment gateway.", price: 300000, image: "https://i.ibb.co.com/YYCXStD/promosi-ke-2.jpg" },
-            { id: 6, name: "Mapping GTA SA:MP", category: "GTA SA:MP", description: "Membuat mapping (bangunan) untuk server ataupun pribadi. Budget pas dijamin puas.", price: 200000, image: "https://i.ibb.co.com/0RF5pYLZ/20131107092815710-1014x650.jpg" },
-            { id: 7, name: "Jasa On Server SAMP", category: "GTA SA:MP", description: "Jasa on server SAMP free set admin dan rename server full.", price: 100000, image: "https://i.ibb.co.com/zVstWGGF/20260212-212710.jpg" },
-            { id: 8, name: "Portfolio Website", category: "Web Development", description: "Membuat Web Portfolio untuk pribadi. Bisa sesuai request dan tentukan tema.", price: 400000, image: "https://i.ibb.co.com/BHxZT1tf/IMG-20260319-WA0050.jpg" }
+            { id: 2, name: "Bot Auto JPM", category: "WhatsApp Bot", description: "Bot promosi otomatis. Ubah cara promosi mu lebih canggih tanpa kesalahan.", price: 15000, image: "https://i.ibb.co.com/BHxZT1tf/IMG-20260319-WA0050.jpg" },
+            { id: 3, name: "Bot Auto Order V8", category: "WhatsApp Bot", description: "Bot Store dengan pembayaran otomatis dan rekap transaksi. User friendly dengan payment gateway.", price: 50000, image: "https://i.ibb.co.com/23XZTmhF/1773936586071.jpg" },
+            { id: 4, name: "WhatsApp Customer Service Bot", category: "WhatsApp Bot", description: "Custom Bot whatsapp, telegram, discord sesuai kebutuhan. Full otomatis payment gateway.", price: 0, image: "https://i.ibb.co.com/prjXp1gC/Solusi-bot-Whats-App-kustom-Lutfi-Digital.png" },
+            { id: 5, name: "Mapping GTA SA:MP", category: "GTA SA:MP", description: "Membuat mapping (bangunan) untuk server ataupun pribadi. Budget pas dijamin puas.", price: 0, image: "https://i.ibb.co.com/YYCXStD/promosi-ke-2.jpg" },
+            { id: 6, name: "Jasa On Server SAMP", category: "GTA SA:MP", description: "Jasa on server SAMP free set admin dan rename server full.", price: 20000, image: "https://i.ibb.co.com/0RF5pYLZ/20131107092815710-1014x650.jpg" },
+			{ id: 7, name: "Portfolio Website", category: "Web Development", description: "Membuat Web Portfolio untuk pribadi. Bisa sesuai request dan tentukan tema.", price: 30000, image: "https://i.ibb.co.com/qYSDmsP4/IMG-20260321-WA0024.jpg" }
         ];
 
         let cart = [];
@@ -1076,16 +1350,15 @@
                     <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'">
                     <div class="product-info">
                         <div class="product-category">${product.category}</div>
-                        <h3 class="product-name">${product.name}</h3>                        <p class="product-description">${product.description}</p>
-                        <div class="product-price">${formatRupiah(product.price)}</div>
-                        <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-price">${formatRupiah(product.price)}</div>                        <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
                             <i class="fas fa-shopping-cart"></i> Add to Cart
                         </button>
                     </div>
                 </div>
             `).join('');
 
-            // Trigger staggered animation
             setTimeout(() => {
                 document.querySelectorAll('.product-card').forEach((card, index) => {
                     setTimeout(() => {
@@ -1115,6 +1388,8 @@
             const totalEl = document.getElementById('total');
             const orderItems = document.getElementById('orderItems');
             const orderTotal = document.getElementById('orderTotal');
+            const orderSubtotal = document.getElementById('orderSubtotal');
+            const orderTax = document.getElementById('orderTax');
 
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartCount.textContent = totalItems;
@@ -1125,8 +1400,8 @@
             } else {
                 cartItems.innerHTML = cart.map(item => `
                     <div class="cart-item">
-                        <div class="cart-item-info">                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">${formatRupiah(item.price)}</div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>                            <div class="cart-item-price">${formatRupiah(item.price)}</div>
                         </div>
                         <div class="cart-item-quantity">
                             <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
@@ -1137,20 +1412,25 @@
                 `).join('');
 
                 orderItems.innerHTML = cart.map(item => `
-                    <div class="cart-total-row">
-                        <span>${item.name} x${item.quantity}</span>
-                        <span>${formatRupiah(item.price * item.quantity)}</span>
+                    <div class="order-item-row">
+                        <span>
+                            <span class="order-item-name">${item.name}</span>
+                            <span class="order-item-qty">x${item.quantity}</span>
+                        </span>
+                        <span class="order-item-price">${formatRupiah(item.price * item.quantity)}</span>
                     </div>
                 `).join('');
             }
 
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const tax = subtotal * 0.1;
+            const tax = subtotal * 0;
             const total = subtotal + tax;
 
             subtotalEl.textContent = formatRupiah(subtotal);
             taxEl.textContent = formatRupiah(tax);
             totalEl.textContent = formatRupiah(total);
+            orderSubtotal.textContent = formatRupiah(subtotal);
+            orderTax.textContent = formatRupiah(tax);
             orderTotal.textContent = formatRupiah(total);
 
             const checkoutBtn = document.getElementById('checkoutBtn');
@@ -1170,10 +1450,10 @@
                 item.quantity += change;
                 if (item.quantity <= 0) {
                     cart = cart.filter(i => i.id !== productId);
-                }
-                updateCart();
+                }                updateCart();
             }
         }
+
         function toggleCart() {
             const modal = document.getElementById('cartModal');
             const overlay = document.getElementById('overlay');
@@ -1218,12 +1498,12 @@
             `).join('');
 
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const tax = subtotal * 0.1;
+            const tax = subtotal * 0;
             const total = subtotal + tax;
-
             document.getElementById('invoiceSubtotal').textContent = formatRupiah(subtotal);
             document.getElementById('invoiceTax').textContent = formatRupiah(tax);
             document.getElementById('invoiceTotal').textContent = formatRupiah(total);
+
             closePaymentModal();
             const invoiceModal = document.getElementById('invoiceModal');
             invoiceModal.classList.add('active');
@@ -1244,7 +1524,7 @@
 
             const invoiceNumber = document.getElementById('invoiceNumber').textContent;
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const tax = subtotal * 0.1;
+            const tax = subtotal * 0;
             const total = subtotal + tax;
             const orderDetails = cart.map(item => `• ${item.name} x${item.quantity} - ${formatRupiah(item.price * item.quantity)}`).join('\n');
 
@@ -1253,7 +1533,7 @@
                 `*Tanggal:* ${formatDate()}%0A%0A` +
                 `*Detail Pesanan:*%0A${orderDetails}%0A%0A` +
                 `*Subtotal:* ${formatRupiah(subtotal)}%0A` +
-                `*Pajak (10%):* ${formatRupiah(tax)}%0A` +
+                `*Pajak (0%):* ${formatRupiah(tax)}%0A` +
                 `*Total Pembayaran:* ${formatRupiah(total)}%0A%0A` +
                 `*Status:* Menunggu Pembayaran%0A%0A` +
                 `Mohon konfirmasi pembayaran saya. Terima kasih!`;
@@ -1268,10 +1548,10 @@
                 showToast('Terima kasih! Keranjang telah direset.', 'success');
             }, 1000);
         }
-
         document.getElementById('paymentModal').addEventListener('click', function(e) {
             if (e.target === this) closePaymentModal();
         });
+
         document.getElementById('invoiceModal').addEventListener('click', function(e) {
             if (e.target === this) closeInvoiceModal();
         });
@@ -1297,16 +1577,13 @@
             }, 3000);
         }
 
-        // Page Load Animation
         window.addEventListener('load', () => {
             const pageLoader = document.getElementById('pageLoader');
             const pageContent = document.getElementById('pageContent');
 
-            // Hide loader after animation
             setTimeout(() => {
                 pageLoader.classList.add('hidden');
                 
-                // Show page content
                 setTimeout(() => {
                     pageContent.classList.add('loaded');
                     renderProducts();
